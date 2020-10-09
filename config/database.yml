@@ -82,4 +82,4 @@ production:
   <<: *default
   database: skunk_fyi_production
   username: skunk_fyi
-  password: <%= ENV['skunk_FYI_DATABASE_PASSWORD'] %>
+  password: <%= ENV['SKUNK_FYI_DATABASE_PASSWORD'] %>

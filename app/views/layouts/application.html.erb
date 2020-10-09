@@ -1,20 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html>
 
-    <title><%= content_for?(:title) ? yield(:title) : "skunk.fyi" %></title>
+<head>
+  <title>SkunkFyi</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-    <%= stylesheet_link_tag    "application" %>
-    <%= csrf_meta_tags %>
-  </head>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+</head>
 
-  <body>
-    <h2>skunk.fyi</h2>
-
+<body class="<%= action_name %>-page">
+  <header>
+    <nav class="navbar navbar-expand-md">
+      <a class="navbar-brand" href="/">
+        <img src="https://fastruby.io/blog/assets/images/fastruby-logo.svg" alt="FastRuby.io Logo">
+        <span></span>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="blog-nav navbar-collapse collapse" id="navbarNavAltMarkup">
+        <a class="nav-item nav-link btn-link" href="/"><strong>Skunk</strong>.fyi</a>
+      </div>
+    </nav>
+  </header>
+  <div class="container">
+  
     <%= yield %>
+  </div>
+</body>
 
-  </body>
 </html>

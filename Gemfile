@@ -11,12 +11,10 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
 gem "sass-rails"
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '~> 4.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
-
-gem 'foundation-rails'
+# Static Pages 
+gem 'high_voltage'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -36,6 +34,26 @@ group :test do
   gem 'test-unit'
 end
 
-group :development, :test do
-  gem 'rails_best_practices'
+gem 'fastruby-styleguide', github: 'fastruby/styleguide', branch: 'gh-pages'
+
+group :test do
+  gem 'capybara', '>= 2.15'
+  gem 'selenium-webdriver'
+  gem 'webdrivers'
+  gem 'rspec-rails'
 end
+
+group :development, :test do
+  gem 'bootsnap'
+  gem 'rails_best_practices'
+  gem 'factory_bot_rails'
+  gem 'simplecov', require: false
+  gem 'standard'
+  gem 'rubocop-rspec'
+  gem 'rubocop-rails'
+  gem 'rubocop-ombu_labs', require: false, github: 'fastruby/rubocop-ombu_labs', branch: :main
+  gem 'reek'
+  gem 'overcommit'
+end
+
+gem 'dotenv-rails'

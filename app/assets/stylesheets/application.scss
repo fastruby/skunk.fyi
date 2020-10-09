@@ -13,3 +13,28 @@
  *= require_tree .
  *= require_self
  */
+
+ @import "fastruby/styleguide";
+
+body.show-page {
+  p, h2, h3 {
+    text-align: left;
+    letter-spacing: 0.1px;
+  }
+}
+
+pre, pre code {
+  background-color: black;
+  color: white;
+  text-align: left;
+}
+
+pre {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  margin-bottom: 1em;
+}
+
+header {
+  position: relative;
+}
