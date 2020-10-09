@@ -44,7 +44,6 @@ group :test do
 end
 
 group :development, :test do
-  gem 'bootsnap'
   gem 'rails_best_practices'
   gem 'factory_bot_rails'
   gem 'simplecov', require: false
@@ -57,3 +56,5 @@ group :development, :test do
 end
 
 gem 'dotenv-rails'
+
+gem 'bootsnap'
