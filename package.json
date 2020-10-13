@@ -5,7 +5,7 @@
     "@rails/actioncable": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "5.2.1",
-    "fastruby-io-styleguide": "fastruby/styleguide#add-yarn-package-support"
+    "fastruby-io-styleguide": "fastruby/styleguide#gh-pages"
   },
   "version": "0.1.0",
   "devDependencies": {
