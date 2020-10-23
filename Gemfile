@@ -13,7 +13,7 @@ gem 'puma', '~> 4.1'
 gem "sass-rails"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
-# Static Pages 
+# Static Pages
 gem 'high_voltage'
 
 group :development, :test do
@@ -37,10 +37,7 @@ end
 gem 'fastruby-styleguide', github: 'fastruby/styleguide', branch: 'gh-pages'
 
 group :test do
-  gem 'capybara', '>= 2.15'
-  gem 'selenium-webdriver'
-  gem 'webdrivers'
-  gem 'rspec-rails'
+  gem 'test-unit'
 end
 
 group :development, :test do
