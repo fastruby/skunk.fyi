@@ -10,7 +10,7 @@ jobs:
       - name: Setup Ruby
         uses: actions/setup-ruby@v1
         with:
-          ruby-version: 2.7.1
+          ruby-version: 2.7.x
       - name: Run test suite with COVERAGE=true
         run: |
           gem install bundler
