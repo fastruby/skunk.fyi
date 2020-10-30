@@ -1,6 +1,6 @@
 # skunk.fyi
 
-This project is a place to share skunk data for all your projects
+This project is a place to share [skunk](https://github.com/fastruby/skunk) data for all your projects
 
 ## Getting Started
 
