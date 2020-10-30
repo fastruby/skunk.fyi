@@ -36,10 +36,6 @@ group :test do
   gem 'test-unit'
 end
 
-group :test do
-  gem 'test-unit'
-end
-
 group :development, :test do
   gem 'rails_best_practices'
   gem 'factory_bot_rails'
