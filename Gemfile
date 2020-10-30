@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.1'
+ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.3'
@@ -13,7 +13,7 @@ gem 'puma', '~> 4.1'
 gem "sass-rails"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
-# Static Pages 
+# Static Pages
 gem 'high_voltage'
 
 gem 'webpacker', '~> 5.x'
@@ -37,10 +37,7 @@ group :test do
 end
 
 group :test do
-  gem 'capybara', '>= 2.15'
-  gem 'selenium-webdriver'
-  gem 'webdrivers'
-  gem 'rspec-rails'
+  gem 'test-unit'
 end
 
 group :development, :test do
