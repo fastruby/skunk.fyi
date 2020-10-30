@@ -18,5 +18,17 @@ In order to submit data to your local instance, you can do it like this:
 SHARE_URL=http://localhost:3000 bundle exec skunk
 ```
 
+## Start the server
 
+Run the command:
 
+```
+rails s
+```
+
+If gems or node packages are missing, run:
+
+```
+bundle install
+yarn install
+```
