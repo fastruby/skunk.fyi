@@ -50,7 +50,7 @@ jobs:
       - name: Run Skunk on Project
         run: |
           gem install skunk
-          rm Gemfile.lock
+          git checkout Gemfile.lock
           CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
           if [[ "$CURRENT_BRANCH" != "master" ]]; then
             echo "Executing within branch: $CURRENT_BRANCH"
