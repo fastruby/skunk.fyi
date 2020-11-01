@@ -1,7 +1,7 @@
 class ReportsController < ApplicationController
   include ReportsHelper
 
-  protect_from_forgery :except => [:create]
+  protect_from_forgery except: [:create]
 
   DATA_KEY = %W!file skunk_score churn_times_cost churn cost coverage!
 
@@ -17,7 +17,7 @@ class ReportsController < ApplicationController
 
     ary = input["entries"]
 
-    unless ary.kind_of? Array
+    unless ary.is_a? Array
       head 400
       return
     end
@@ -50,7 +50,7 @@ class ReportsController < ApplicationController
 
     rep.save
 
-    render json: { id: rep.short_id }
+    render json: {id: rep.short_id}
   end
 
   def show

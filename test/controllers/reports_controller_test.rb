@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class ReportsControllerTest < ActionController::TestCase
   test "validates the data json" do
@@ -45,7 +45,7 @@ class ReportsControllerTest < ActionController::TestCase
 
     report = Report.find_from_short_id rep["id"]
 
-raw = <<-DATA
+    raw = <<-DATA
     [{
       "file": "lib/skunk/share.rb",
       "skunk_score": "127.64",
@@ -54,12 +54,13 @@ raw = <<-DATA
       "cost": "1.28",
       "coverage": "0.0"
     }]
-DATA
+    DATA
 
     assert_equal JSON.parse(raw), report.data
   end
 
   test "errors on unknown data keys" do
+<<<<<<< HEAD
     data = <<-DATA
     {
       "entries":
@@ -86,6 +87,20 @@ DATA
         "compare": "false"
       }
     }
+=======
+    data = <<~DATA
+      {
+        "entries":
+          [{
+            "name": "test",
+            "ipx": 10.1,
+            "stddev": 0.3,
+            "microseconds": 3322,
+            "iterations": 221,
+            "cycles": 16
+          }]
+      }
+>>>>>>> Fix standardrb Style/StringLiterals
     DATA
 
     post :create, body: data
@@ -94,6 +109,7 @@ DATA
   end
 
   test "errors out if there are keys missing" do
+<<<<<<< HEAD
     data = <<-DATA
     {
       "entries":
@@ -114,11 +130,19 @@ DATA
         "compare": "false"
       }
     }
+=======
+    data = <<~DATA
+      {
+        "entries":
+          [{
+            "name": "test"
+          }]
+      }
+>>>>>>> Fix standardrb Style/StringLiterals
     DATA
 
     post :create, body: data
 
     assert_equal "400", @response.code
-
   end
 end
