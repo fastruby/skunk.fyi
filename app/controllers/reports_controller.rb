@@ -30,13 +30,13 @@ class ReportsController < ApplicationController
           needed.delete k
         else
           head 400
-          return
+          break
         end
       end
 
       unless needed.empty?
         head 400
-        return
+        break
       end
     end
 
