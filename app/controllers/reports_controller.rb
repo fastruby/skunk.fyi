@@ -15,19 +15,19 @@ class ReportsController < ApplicationController
       return
     end
 
-    ary = input["entries"]
+    entries = input["entries"]
 
-    unless ary.is_a? Array
+    unless entries.is_a? Array
       head 400
       return
     end
 
-    unless (DATA_KEY - ary.first.keys).empty?
+    unless (DATA_KEY - entries.first.keys).empty?
       head 400
       return
     end
 
-    rep = Report.create report: JSON.generate(ary)
+    rep = Report.create report: JSON.generate(entries)
 
     options = input["options"] || {}
 
