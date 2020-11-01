@@ -22,22 +22,9 @@ class ReportsController < ApplicationController
       return
     end
 
-    ary.each do |j|
-      needed = DATA_KEY.dup
-
-      j.keys.each do |k|
-        if DATA_KEY.include? k
-          needed.delete k
-        else
-          head 400
-          break
-        end
-      end
-
-      unless needed.empty?
-        head 400
-        break
-      end
+    unless (DATA_KEY - ary.first.keys).empty?
+      head 400
+      return
     end
 
     rep = Report.create report: JSON.generate(ary)
