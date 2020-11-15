@@ -14,15 +14,26 @@ class ReportsControllerTest < ActionController::TestCase
 {
   "entries":
     [{
-      "name": "test",
-      "ips": 10.1,
-      "central_tendency": 10.1,
-      "error": 23666,
-      "stddev": 0.3,
-      "microseconds": 3322,
-      "iterations": 221,
-      "cycles": 16
-    }]
+      "file": "lib/skunk/share.rb",
+      "skunk_score": "127.64",
+      "churn_times_cost": "2.55",
+      "churn": "2",
+      "cost": "1.28",
+      "coverage": "0.0"
+    }],
+  "summary": {
+    "total_skunk_score": "278.58",
+    "analysed_modules_count": "17",
+    "skunk_score_average": "16.39",
+    "skunk_version": "0.4.2",
+    "worst_skunk_score": {
+      "file": "lib/skunk/share.rb",
+      "skunk_score": "127.64"
+    }
+  },
+  "options": {
+    "compare": "false"
+  }
 }
     DATA
 
@@ -36,14 +47,12 @@ class ReportsControllerTest < ActionController::TestCase
 
 raw = <<-DATA
     [{
-      "name": "test",
-      "ips": 10.1,
-      "central_tendency": 10.1,
-      "error": 23666,
-      "stddev": 0.3,
-      "microseconds": 3322,
-      "iterations": 221,
-      "cycles": 16
+      "file": "lib/skunk/share.rb",
+      "skunk_score": "127.64",
+      "churn_times_cost": "2.55",
+      "churn": "2",
+      "cost": "1.28",
+      "coverage": "0.0"
     }]
 DATA
 
@@ -52,19 +61,33 @@ DATA
 
   test "errors on unknown data keys" do
     data = <<-DATA
-{
-  "entries":
-    [{
-      "name": "test",
-      "ipx": 10.1,
-      "stddev": 0.3,
-      "microseconds": 3322,
-      "iterations": 221,
-      "cycles": 16
-    }]
-}
+    {
+      "entries":
+        [{
+          "file": "lib/skunk/share.rb",
+          "skunk_score": "127.64",
+          "churn_times_cost": "2.55",
+          "churn": "2",
+          "cost": "1.28",
+          "coverage": "0.0",
+          "foo": "bar"
+        }],
+      "summary": {
+        "total_skunk_score": "278.58",
+        "analysed_modules_count": "17",
+        "skunk_score_average": "16.39",
+        "skunk_version": "0.4.2",
+        "worst_skunk_score": {
+          "file": "lib/skunk/share.rb",
+          "skunk_score": "127.64"
+        }
+      },
+      "options": {
+        "compare": "false"
+      }
+    }
     DATA
-    
+
     post :create, body: data
 
     assert_equal "400", @response.code
@@ -72,14 +95,27 @@ DATA
 
   test "errors out if there are keys missing" do
     data = <<-DATA
-{
-  "entries":
-    [{
-      "name": "test"
-    }]
-}
+    {
+      "entries":
+        [{
+          "file": "lib/skunk/share.rb",
+        }],
+      "summary": {
+        "total_skunk_score": "278.58",
+        "analysed_modules_count": "17",
+        "skunk_score_average": "16.39",
+        "skunk_version": "0.4.2",
+        "worst_skunk_score": {
+          "file": "lib/skunk/share.rb",
+          "skunk_score": "127.64"
+        }
+      },
+      "options": {
+        "compare": "false"
+      }
+    }
     DATA
-    
+
     post :create, body: data
 
     assert_equal "400", @response.code
