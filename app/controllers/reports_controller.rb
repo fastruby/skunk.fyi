@@ -3,11 +3,10 @@ class ReportsController < ApplicationController
 
   protect_from_forgery :except => [:create]
 
-  DATA_KEY = %W!central_tendency error name ips stddev microseconds iterations cycles!
+  DATA_KEY = %W!file skunk_score churn_times_cost churn cost coverage!
 
   def create
     data = request.body.read
-
     begin
       input = JSON.parse data
     rescue Exception => err
