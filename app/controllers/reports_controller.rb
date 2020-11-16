@@ -3,8 +3,6 @@ class ReportsController < ApplicationController
 
   protect_from_forgery :except => [:create]
 
-  DATA_KEY = %W!file skunk_score churn_times_cost churn cost coverage!
-
   def create
     data = request.body.read
     begin
@@ -23,10 +21,10 @@ class ReportsController < ApplicationController
     end
 
     ary.each do |j|
-      needed = DATA_KEY.dup
+      needed = AnalyzedModule::KEYS.dup
 
       j.keys.each do |k|
-        if DATA_KEY.include? k
+        if AnalyzedModule::KEYS.include? k
           needed.delete k
         else
           head 400
@@ -55,23 +53,5 @@ class ReportsController < ApplicationController
 
   def show
     @report = Report.find_from_short_id params[:id]
-
-    fastest = nil
-    fastest_val = nil
-    note_high_stddev = false
-
-    @report.data.each do |part|
-      if !fastest_val || part["ips"] > fastest_val
-        fastest = part
-        fastest_val = part["ips"]
-      end
-
-      if stddev_percentage(part) >= 5
-        note_high_stddev = true
-      end
-    end
-
-    @note_high_stddev = note_high_stddev
-    @fastest = fastest
   end
 end
