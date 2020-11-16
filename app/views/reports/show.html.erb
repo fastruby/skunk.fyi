@@ -3,7 +3,7 @@
     <thead>
       <tr>
         <% AnalyzedModule::KEYS.each do |value| %>
-          <th><%= value.humanize %></th>
+          <th><%= value.humanize.titleize %></th>
         <% end %>
       </tr>
     </thead>
@@ -11,7 +11,7 @@
     <% @report.data.each do |part| %>
       <tr class="<%= cycle("odd", "even") %>">
         <% AnalyzedModule::KEYS.each do |value| %>
-          <td class="<%= cell_class(value) %>">
+          <td class="<%= value %>-cell">
             <%= part[value] %>
           </td>
         <% end %>

@@ -47,7 +47,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   font: inherit;
   vertical-align: baseline;
 }
-table {
+table.results {
   border-collapse: collapse;
   border-spacing: 0;
 
@@ -70,11 +70,11 @@ table {
     padding-right: 0.7em;
   }
 
-  th, td.left {
-    text-align: left;
+  td {
+    text-align: right;
   }
 
-  td.right {
-    text-align: right;
+  td.file-cell, th {
+    text-align: left;
   }
 }
