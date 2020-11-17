@@ -60,7 +60,6 @@ class ReportsControllerTest < ActionController::TestCase
   end
 
   test "errors on unknown data keys" do
-<<<<<<< HEAD
     data = <<-DATA
     {
       "entries":
@@ -87,20 +86,6 @@ class ReportsControllerTest < ActionController::TestCase
         "compare": "false"
       }
     }
-=======
-    data = <<~DATA
-      {
-        "entries":
-          [{
-            "name": "test",
-            "ipx": 10.1,
-            "stddev": 0.3,
-            "microseconds": 3322,
-            "iterations": 221,
-            "cycles": 16
-          }]
-      }
->>>>>>> Fix standardrb Style/StringLiterals
     DATA
 
     post :create, body: data
@@ -109,7 +94,6 @@ class ReportsControllerTest < ActionController::TestCase
   end
 
   test "errors out if there are keys missing" do
-<<<<<<< HEAD
     data = <<-DATA
     {
       "entries":
@@ -130,15 +114,6 @@ class ReportsControllerTest < ActionController::TestCase
         "compare": "false"
       }
     }
-=======
-    data = <<~DATA
-      {
-        "entries":
-          [{
-            "name": "test"
-          }]
-      }
->>>>>>> Fix standardrb Style/StringLiterals
     DATA
 
     post :create, body: data
