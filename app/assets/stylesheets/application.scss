@@ -38,3 +38,43 @@ pre {
 header {
   position: relative;
 }
+
+table, caption, tbody, tfoot, thead, tr, th, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+table.results {
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  tr {
+    line-height: 2em;
+  }
+
+  thead tr {
+    color: white;
+    background-color: $grey;
+  }
+
+  tr.odd {
+    background-color: $lighter-grey;
+  }
+
+  th, td {
+    padding-left: 1em;
+    border: solid 0.1em;
+    padding-right: 0.7em;
+  }
+
+  td {
+    text-align: right;
+  }
+
+  td.file-cell, th {
+    text-align: left;
+  }
+}
