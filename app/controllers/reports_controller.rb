@@ -3,7 +3,7 @@ class ReportsController < ApplicationController
 
   protect_from_forgery except: [:create]
 
-  DATA_KEY = %W!file skunk_score churn_times_cost churn cost coverage!
+  DATA_KEY = %W[file skunk_score churn_times_cost churn cost coverage]
 
   def create
     data = request.body.read
