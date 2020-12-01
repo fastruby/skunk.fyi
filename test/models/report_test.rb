@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class ReportTest < ActionController::TestCase
   test "valid? returns false when report is too short" do
@@ -20,7 +20,7 @@ class ReportTest < ActionController::TestCase
 
   test "valid? returns false when report is not valid JSON" do
     msg = "Report must be valid JSON"
-    data = file_fixture('invalid_report.json').read
+    data = file_fixture("invalid_report.json").read
     report = Report.new(report: data)
 
     assert_not report.valid?
@@ -28,7 +28,7 @@ class ReportTest < ActionController::TestCase
   end
 
   test "valid? returns true when report is valid" do
-    data = file_fixture('valid_report.json').read
+    data = file_fixture("valid_report.json").read
     report = Report.new(report: data)
 
     assert report.valid?
