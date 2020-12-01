@@ -2,6 +2,9 @@ class Report < ActiveRecord::Base
   ALPHABET = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
   BASE = ALPHABET.length
 
+  validates :report, length: { minimum: 100, maximum: 20_000 }
+  validate :validate_parseability
+
   def data
     JSON.parse report
   end
@@ -27,5 +30,16 @@ class Report < ActiveRecord::Base
     end
 
     Report.find int_val
+  end
+
+  private
+
+  def validate_parseability
+    return if report.blank?
+
+    JSON.parse(report)
+
+  rescue JSON::ParserError
+    self.errors.add :report, :invalid, message: "must be valid JSON"
   end
 end
