@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class RoutingTest < ActionDispatch::IntegrationTest
+class ReportShowTest < ActionDispatch::IntegrationTest
   def test_slug
     data = <<-DATA
 [{
