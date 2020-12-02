@@ -13,7 +13,7 @@ class ReportShowTest < ActionDispatch::IntegrationTest
 }]
     DATA
 
-    report = Report.create! report: data
+    report = Report.create report: data
 
     get "/#{report.slug}"
     assert_equal 200, status
