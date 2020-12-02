@@ -43,7 +43,7 @@ class ReportsControllerTest < ActionController::TestCase
 
     rep = JSON.parse @response.body
 
-    report = Report.find_from_short_id rep["id"]
+    report = Report.find_by slug: rep["id"]
 
 raw = <<-DATA
     [{
@@ -135,7 +135,7 @@ DATA
     DATA
     report = Report.create(report: raw)
 
-    get :show, params: { id: report.short_id }
+    get :show, params: { id: report.slug }
 
     assert_equal "200", @response.code
     assert_includes @response.body, "127.64"
