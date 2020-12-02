@@ -1,9 +1,10 @@
 require "digest"
 
 class Report < ActiveRecord::Base
-  before_create :set_slug
+  before_validation :set_slug
 
   validates :report, length: { minimum: 100, maximum: 20_000 }
+  validates :slug, uniqueness: true
   validate :validate_parseability
 
   def data
@@ -13,7 +14,9 @@ class Report < ActiveRecord::Base
   private
 
   def set_slug
-    random_report = report + rand(1_000).to_s
+    return if slug.present? || report.blank?
+
+    random_report = report + Time.now.to_i.to_s
     self.slug = Digest::SHA2.hexdigest(random_report)
   end
 
