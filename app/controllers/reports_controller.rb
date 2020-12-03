@@ -48,10 +48,10 @@ class ReportsController < ApplicationController
 
     rep.save
 
-    render json: { id: rep.short_id }
+    render json: { id: rep.slug }
   end
 
   def show
-    @report = Report.find_from_short_id params[:id]
+    @report = Report.find_by slug: params[:id]
   end
 end

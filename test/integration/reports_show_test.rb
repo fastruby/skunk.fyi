@@ -1,7 +1,7 @@
 require 'test_helper'
 
-class RoutingTest < ActionDispatch::IntegrationTest
-  def test_short_id
+class ReportShowTest < ActionDispatch::IntegrationTest
+  def test_slug
     data = <<-DATA
 [{
   "name": "test",
@@ -13,9 +13,9 @@ class RoutingTest < ActionDispatch::IntegrationTest
 }]
     DATA
 
-    report = Report.create! report: data
+    report = Report.create report: data
 
-    get "/#{report.short_id}"
+    get "/#{report.slug}"
     assert_equal 200, status
   end
 end
