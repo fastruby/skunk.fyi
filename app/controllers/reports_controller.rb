@@ -48,7 +48,7 @@ class ReportsController < ApplicationController
 
     rep.save
 
-    render json: { id: rep.slug }
+    render json: {id: rep.slug}
   end
 
   def show
