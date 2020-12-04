@@ -1,31 +1,31 @@
+require "digest"
+
 class Report < ActiveRecord::Base
-  ALPHABET = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
-  BASE = ALPHABET.length
+  before_validation :set_slug
+
+  validates :report, length: { minimum: 100, maximum: 20_000 }
+  validates :slug, uniqueness: true
+  validate :validate_parseability
 
   def data
     JSON.parse report
   end
 
-  def short_id
-    int_val = id
+  private
 
-    base58_val = ""
-    while int_val >= BASE
-      mod = int_val % BASE
-      base58_val = ALPHABET[mod, 1] + base58_val
-      int_val = (int_val - mod) / BASE
-    end
+  def set_slug
+    return if slug.present? || report.blank?
 
-    ALPHABET[int_val, 1] + base58_val
+    random_report = report + Time.now.to_i.to_s
+    self.slug = Digest::SHA2.hexdigest(random_report)
   end
 
-  def self.find_from_short_id(base58_val)
-    int_val = 0
-    base58_val.reverse.split(//).each_with_index do |char, index|
-      raise ArgumentError, "Value passed not a valid Base58 String." if (char_index = ALPHABET.index(char)).nil?
-      int_val += char_index * (BASE**index)
-    end
+  def validate_parseability
+    return if report.blank?
 
-    Report.find int_val
+    JSON.parse(report)
+
+  rescue JSON::ParserError
+    self.errors.add :report, :invalid, message: "must be valid JSON"
   end
 end

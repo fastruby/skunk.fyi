@@ -3,8 +3,6 @@ class ReportsController < ApplicationController
 
   protect_from_forgery except: [:create]
 
-  DATA_KEY = %W[file skunk_score churn_times_cost churn cost coverage]
-
   def create
     data = request.body.read
     begin
@@ -22,9 +20,22 @@ class ReportsController < ApplicationController
       return
     end
 
-    unless (DATA_KEY - entries.first.keys).empty?
-      head 400
-      return
+    ary.each do |j|
+      needed = AnalyzedModule::KEYS.dup
+
+      j.keys.each do |k|
+        if AnalyzedModule::KEYS.include? k
+          needed.delete k
+        else
+          head 400
+          return
+        end
+      end
+
+      unless needed.empty?
+        head 400
+        return
+      end
     end
 
     rep = Report.create report: JSON.generate(entries)
@@ -37,28 +48,10 @@ class ReportsController < ApplicationController
 
     rep.save
 
-    render json: {id: rep.short_id}
+    render json: { id: rep.slug }
   end
 
   def show
-    @report = Report.find_from_short_id params[:id]
-
-    fastest = nil
-    fastest_val = nil
-    note_high_stddev = false
-
-    @report.data.each do |part|
-      if !fastest_val || part["ips"] > fastest_val
-        fastest = part
-        fastest_val = part["ips"]
-      end
-
-      if stddev_percentage(part) >= 5
-        note_high_stddev = true
-      end
-    end
-
-    @note_high_stddev = note_high_stddev
-    @fastest = fastest
+    @report = Report.find_by slug: params[:id]
   end
 end
