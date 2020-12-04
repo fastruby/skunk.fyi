@@ -20,7 +20,7 @@ class ReportsController < ApplicationController
       return
     end
 
-    ary.each do |j|
+    entries.each do |j|
       needed = AnalyzedModule::KEYS.dup
 
       j.keys.each do |k|
@@ -28,13 +28,13 @@ class ReportsController < ApplicationController
           needed.delete k
         else
           head 400
-          return
+          return false
         end
       end
 
       unless needed.empty?
         head 400
-        return
+        return false
       end
     end
 
