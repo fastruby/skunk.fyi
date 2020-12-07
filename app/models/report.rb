@@ -3,7 +3,7 @@ require "digest"
 class Report < ActiveRecord::Base
   before_validation :set_slug
 
-  validates :report, length: { minimum: 100, maximum: 20_000 }
+  validates :report, length: {minimum: 100, maximum: 20_000}
   validates :slug, uniqueness: true
   validate :validate_parseability
 
@@ -24,8 +24,7 @@ class Report < ActiveRecord::Base
     return if report.blank?
 
     JSON.parse(report)
-
   rescue JSON::ParserError
-    self.errors.add :report, :invalid, message: "must be valid JSON"
+    errors.add :report, :invalid, message: "must be valid JSON"
   end
 end

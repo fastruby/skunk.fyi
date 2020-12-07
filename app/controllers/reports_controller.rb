@@ -1,26 +1,26 @@
 class ReportsController < ApplicationController
   include ReportsHelper
 
-  protect_from_forgery :except => [:create]
+  protect_from_forgery except: [:create]
 
   def create
     data = request.body.read
     begin
       input = JSON.parse data
-    rescue Exception => err
+    rescue => err
       logger.fatal("Error: #{err.message} || #{data}")
       head 400
       return
     end
 
-    ary = input["entries"]
+    entries = input["entries"]
 
-    unless ary.kind_of? Array
+    unless entries.is_a? Array
       head 400
       return
     end
 
-    ary.each do |j|
+    entries.each do |j|
       needed = AnalyzedModule::KEYS.dup
 
       j.keys.each do |k|
@@ -28,17 +28,17 @@ class ReportsController < ApplicationController
           needed.delete k
         else
           head 400
-          return
+          return false
         end
       end
 
       unless needed.empty?
         head 400
-        return
+        return false
       end
     end
 
-    rep = Report.create report: JSON.generate(ary)
+    rep = Report.create report: JSON.generate(entries)
 
     options = input["options"] || {}
 
@@ -48,7 +48,7 @@ class ReportsController < ApplicationController
 
     rep.save
 
-    render json: { id: rep.slug }
+    render json: {id: rep.slug}
   end
 
   def show
