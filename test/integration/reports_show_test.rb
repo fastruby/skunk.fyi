@@ -1,7 +1,7 @@
 require "test_helper"
 
-class RoutingTest < ActionDispatch::IntegrationTest
-  def test_short_id
+class ReportShowTest < ActionDispatch::IntegrationTest
+  def test_slug
     data = <<~DATA
       [{
         "name": "test",
