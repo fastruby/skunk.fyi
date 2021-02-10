@@ -33,3 +33,6 @@
 yarn-debug.log*
 .yarn-integrity
 config/database.yml
+
+# Ignore environment variables file
+.env
