@@ -10,6 +10,14 @@ You can locally setup this Rails application by calling this command:
 ./bin/setup
 ```
 
+## Environment Variables
+
+You will be able to configure the application by changing the variables in the
+`.env` file:
+
+- ADMIN_USERNAME: Username for basic http authentication
+- ADMIN_PASSWORD: Password for basic http authentication
+
 ## Submitting Data
 
 In order to submit data to your local instance, you can do it like this:

@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  namespace :madmin do
+    resources :reports
+    root to: "dashboard#show"
+  end
   root to: "high_voltage/pages#show", id: "home"
 
   post "/reports", to: "reports#create"
