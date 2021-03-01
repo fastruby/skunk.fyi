@@ -40,3 +40,10 @@ If gems or node packages are missing, run:
 bundle install
 yarn install
 ```
+
+## Sponsorship
+
+![FastRuby.io | Rails Upgrade Services](https://github.com/fastruby/skunk.fyi/raw/main/app/assets/images/fastruby-logo.png)
+
+
+`Skunk.fyi` is maintained and funded by [FastRuby.io](https://fastruby.io). The names and logos for FastRuby.io are trademarks of The Lean Software Boutique LLC.
