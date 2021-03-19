@@ -6,4 +6,4 @@ Please include a summary of the change and which issue is fixed or which feature
 If changes to the UI are made, please include screenshots of the before and after.
 
 
-I will abide by the [code of conduct](https://github.com/fastruby/points/CODE_OF_CONDUCT.md).
+I will abide by the [code of conduct](CODE_OF_CONDUCT.md).
