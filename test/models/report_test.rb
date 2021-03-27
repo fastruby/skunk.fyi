@@ -8,6 +8,13 @@ class ReportTest < ActionController::TestCase
     assert_equal 64, report.slug.size
   end
 
+  test "creation creates files in the database" do
+    data = file_fixture("valid_report.json").read
+    report = Report.create(report: data)
+
+    assert_equal 17, report.analyzed_files.size
+  end
+
   test "it is invalid when report is too short" do
     msg = "Report is too short (minimum is 100 characters)"
     report = Report.new

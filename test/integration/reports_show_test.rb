@@ -4,12 +4,12 @@ class ReportShowTest < ActionDispatch::IntegrationTest
   def test_slug
     data = <<~DATA
       [{
-        "name": "test",
-        "ips": 10.1,
-        "stddev": 0.3,
-        "microseconds": 3322,
-        "iterations": 221,
-        "cycles": 16
+        "file": "lib/skunk/cli/commands/version.rb",
+        "skunk_score": 8.8,
+        "churn_times_cost": 0.44,
+        "churn": 5,
+        "cost": 0.09,
+        "coverage": 0.0
       }]
     DATA
 
