@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_01_212814) do
+ActiveRecord::Schema.define(version: 2021_03_27_014813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "analyzed_files", force: :cascade do |t|
+    t.bigint "report_id"
+    t.string "name"
+    t.decimal "skunk_score", precision: 8, scale: 2
+    t.decimal "churn_times_cost", precision: 8, scale: 2
+    t.decimal "churn", precision: 8, scale: 2
+    t.decimal "cost", precision: 8, scale: 2
+    t.decimal "coverage", precision: 8, scale: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["report_id"], name: "index_analyzed_files_on_report_id"
+  end
 
   create_table "reports", id: :serial, force: :cascade do |t|
     t.text "report"
