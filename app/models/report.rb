@@ -11,13 +11,15 @@ class Report < ActiveRecord::Base
   has_many :analyzed_files
 
   def build_files
-    self.analyzed_files = data.map do |_hash|
-      _hash[:name] = _hash.delete("file")
-      _hash.transform_values! do |v|
-        BigDecimal(v) rescue v
+    self.analyzed_files = data.map do |attributes|
+      attributes[:name] = attributes.delete("file")
+      attributes.transform_values! do |v|
+        BigDecimal(v)
+      rescue
+        v
       end
       AnalyzedFile.new(
-        _hash
+        attributes
       )
     end
   end
