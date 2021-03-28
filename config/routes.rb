@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   namespace :madmin do
+    resources :analyzed_files
     resources :reports
     root to: "dashboard#show"
   end

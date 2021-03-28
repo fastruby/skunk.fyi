@@ -2,10 +2,27 @@ require "digest"
 
 class Report < ActiveRecord::Base
   before_validation :set_slug
+  before_create :build_files
 
   validates :report, length: {minimum: 100, maximum: 20_000}
   validates :slug, uniqueness: true
   validate :validate_parseability
+
+  has_many :analyzed_files
+
+  def build_files
+    self.analyzed_files = data.map do |attributes|
+      attributes[:name] = attributes.delete("file")
+      attributes.transform_values! do |v|
+        BigDecimal(v)
+      rescue
+        v
+      end
+      AnalyzedFile.new(
+        attributes
+      )
+    end
+  end
 
   def data
     JSON.parse report
