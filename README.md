@@ -43,7 +43,7 @@ yarn install
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at [https://github.com/fastruby/skunk.fyi](https://github.com/fastruby/skunk.fyi). This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at [https://github.com/fastruby/skunk.fyi](https://github.com/fastruby/skunk.fyi). This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](https://github.com/fastruby/skunk.fyi/blob/main/CODE_OF_CONDUCT.md) code of conduct.
 
 When Submitting a Pull Request:
 
