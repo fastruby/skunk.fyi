@@ -10,7 +10,7 @@ on:
     - main
 
 jobs:
-  test-ruby-2-7-1:
+  test-ruby-2-7:
     runs-on: ubuntu-latest
 
     services:
