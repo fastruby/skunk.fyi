@@ -133,7 +133,7 @@ GEM
     pg (1.2.3)
     power_assert (2.0.0)
     psych (3.3.1)
-    puma (4.3.7)
+    puma (4.3.8)
       nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
@@ -274,7 +274,7 @@ DEPENDENCIES
   madmin (~> 1.0.0)
   overcommit
   pg (>= 0.18, < 2.0)
-  puma (~> 4.1)
+  puma (~> 4.3)
   rails (~> 6.1.0)
   rails_best_practices
   reek
