@@ -87,5 +87,10 @@ jobs:
           cp config/database.yml.github config/database.yml
           bin/rails db:setup
       - name: Run tests
+        env:
+          PGHOST: localhost
+          PGUSER: postgres
+          RAILS_ENV: test
+          BUNDLE_GEMFILE: Gemfile.next
         run: |
           bundle exec rake
