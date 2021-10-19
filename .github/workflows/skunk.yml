@@ -52,10 +52,10 @@ jobs:
           gem install skunk
           git checkout Gemfile.lock
           CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
-          if [[ "$CURRENT_BRANCH" != "master" ]]; then
+          if [[ "$CURRENT_BRANCH" != "main" ]]; then
             echo "Executing within branch: $CURRENT_BRANCH"
             skunk . -b main
           else
-            echo "Executing within master branch"
+            echo "Executing within main branch"
             skunk .
           fi
