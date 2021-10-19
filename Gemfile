@@ -14,7 +14,6 @@ else
   gem "rails", "~> 6.1.0"
 end
 
-
 gem "madmin"
 
 # Use postgresql as the database for Active Record
