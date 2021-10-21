@@ -10,7 +10,7 @@ on:
     - main
 
 jobs:
-  test-ruby-3-0:
+  test-ruby-2-7:
     runs-on: ubuntu-latest
 
     services:
@@ -27,9 +27,9 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
+        uses: actions/setup-ruby@v1
         with:
-          ruby-version: "3.0.2"
+          ruby-version: "2.7.x"
 
       - name: Install PostgreSQL 11 client
         run: |
