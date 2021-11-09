@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 2021_11_06_175125) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["permalink"], name: "index_projects_on_permalink", unique: true
   end
 
   create_table "reports", id: :serial, force: :cascade do |t|
