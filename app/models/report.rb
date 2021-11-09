@@ -8,6 +8,7 @@ class Report < ActiveRecord::Base
   validates :slug, uniqueness: true
   validate :validate_parseability
 
+  belongs_to :project, optional: true
   has_many :analyzed_files
 
   def build_files
