@@ -1,0 +1,4 @@
+<%= form_for @project do |f| %>
+  <%= f.text_field :git_url, placeholder: "git@#{@source}.com:#{@permalink}.git", size: "42" %>
+  <%= f.submit "Submit" %>
+<% end %>

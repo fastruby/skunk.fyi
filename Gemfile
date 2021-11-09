@@ -27,6 +27,9 @@ gem "jbuilder", "~> 2.7"
 # Static Pages
 gem "high_voltage"
 
+# For GitHub integration
+gem "skunk"
+
 gem "webpacker", "~> 5.x"
 
 group :development, :test do
