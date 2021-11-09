@@ -8,6 +8,7 @@ class AddProjects < ActiveRecord::Migration[6.1]
     end
 
     add_reference :reports, :project, foreign_key: true
+    add_index :projects, :permalink, unique: true
   end
 
   def down
