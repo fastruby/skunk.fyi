@@ -146,7 +146,7 @@ class ReportsControllerTest < ActionController::TestCase
     report = Report.find_by slug: rep["id"]
     project = report.project
 
-    assert_equal project.permalink, permalink
+    assert_equal project, existing_project
   end
 
   test "errors on unknown data keys" do
