@@ -1,5 +1,7 @@
 # skunk.fyi
 
+ignore this
+
 This project is a place to share [skunk](https://github.com/fastruby/skunk) data for all your projects
 
 ## Getting Started
@@ -47,17 +49,16 @@ Bug reports and pull requests are welcome on GitHub at [https://github.com/fastr
 
 When Submitting a Pull Request:
 
-* If your PR closes any open GitHub issues, please include `Closes #XXXX` in your comment
+- If your PR closes any open GitHub issues, please include `Closes #XXXX` in your comment
 
-* Please include a summary of the change and which issue is fixed or which feature is introduced.
+- Please include a summary of the change and which issue is fixed or which feature is introduced.
 
-* If changes to the behavior are made, clearly describe what changes.
+- If changes to the behavior are made, clearly describe what changes.
 
-* If changes to the UI are made, please include screenshots of the before and after.
+- If changes to the UI are made, please include screenshots of the before and after.
 
 ## Sponsorship
 
 ![FastRuby.io | Rails Upgrade Services](https://github.com/fastruby/skunk.fyi/raw/main/app/assets/images/fastruby-logo.png)
-
 
 `Skunk.fyi` is maintained and funded by [FastRuby.io](https://fastruby.io). The names and logos for FastRuby.io are trademarks of The Lean Software Boutique LLC.
