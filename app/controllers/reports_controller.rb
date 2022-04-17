@@ -52,6 +52,10 @@ class ReportsController < ApplicationController
 
   def show
     @report = Report.find_by slug: params[:id]
+
+    if @report.blank?
+      render file: "#{Rails.root}/public/404.html", layout: false, status: :not_found
+    end
   end
 
   private
