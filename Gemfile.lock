@@ -120,7 +120,7 @@ GEM
     minitest (5.14.4)
     msgpack (1.4.2)
     nio4r (2.5.8)
-    nokogiri (1.13.9)
+    nokogiri (1.13.10)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     overcommit (0.58.0)
@@ -135,7 +135,7 @@ GEM
     power_assert (2.0.1)
     puma (4.3.12)
       nio4r (~> 2.0)
-    racc (1.6.0)
+    racc (1.6.1)
     rack (2.2.3.1)
     rack-proxy (0.7.0)
       rack
