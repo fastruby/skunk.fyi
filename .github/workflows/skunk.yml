@@ -47,7 +47,6 @@ jobs:
           yarn install
           cp config/database.yml.github config/database.yml
           bin/rails db:setup
-          rails assets:precompile
       - name: Run tests
         run: |
           COVERAGE=true bundle exec rake
