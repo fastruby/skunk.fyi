@@ -1,6 +1,6 @@
 require "digest"
 
-class Report < ActiveRecord::Base
+class Report < ApplicationRecord
   before_validation :set_slug
   before_create :build_files
 
@@ -9,7 +9,7 @@ class Report < ActiveRecord::Base
   validate :validate_parseability
 
   belongs_to :project, optional: true
-  has_many :analyzed_files
+  has_many :analyzed_files, dependent: :destroy
 
   def build_files
     self.analyzed_files = data.map do |attributes|
