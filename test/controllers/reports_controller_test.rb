@@ -105,7 +105,7 @@ class ReportsControllerTest < ActionController::TestCase
 
   test "assigns a project to an existing project" do
     permalink = "github/fastruby/skunk"
-    existing_project = Project.create(permalink: permalink)
+    existing_project = Project.create(permalink:)
     project_id = existing_project.id
     data = <<~DATA
       {

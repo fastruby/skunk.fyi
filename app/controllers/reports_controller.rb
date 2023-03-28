@@ -11,7 +11,7 @@ class ReportsController < ApplicationController
     project = find_project(input)
 
     unless entries.is_a? Array
-      head 400
+      head :bad_request
       return
     end
 
@@ -22,13 +22,13 @@ class ReportsController < ApplicationController
         if AnalyzedModule::KEYS.include? k
           needed.delete k
         else
-          head 400
+          head :bad_request
           return false
         end
       end
 
       unless needed.empty?
-        head 400
+        head :bad_request
         return false
       end
     end
@@ -46,7 +46,7 @@ class ReportsController < ApplicationController
     render json: response_hash(rep)
   rescue => err
     logger.fatal("Error: #{err.message} || #{data}")
-    head 400
+    head :bad_request
     nil
   end
 
@@ -54,7 +54,7 @@ class ReportsController < ApplicationController
     @report = Report.find_by slug: params[:id]
 
     if @report.blank?
-      render file: "#{Rails.root}/public/404.html", layout: false, status: :not_found
+      render file: Rails.root.join("public/404.html"), layout: false, status: :not_found
     end
   end
 
