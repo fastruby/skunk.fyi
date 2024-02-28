@@ -9,9 +9,9 @@ ruby "3.1.3"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 if next?
-  gem "rails", "~> 7.0.0"
+  gem "rails", "~> 6.1.7"
 else
-  gem "rails", "~> 6.1.0"
+  gem "rails", "~> 6.1.7"
 end
 
 gem "madmin"
