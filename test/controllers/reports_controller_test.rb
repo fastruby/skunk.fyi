@@ -261,14 +261,14 @@ class ReportsControllerTest < ActionController::TestCase
     DATA
     report = Report.create(report: raw)
 
-    get :show, params: {id: report.slug}
+    get :show, params: { id: report.slug }
 
     assert_equal "200", @response.code
     assert_includes @response.body, "127.64"
   end
 
   test "shows renders the 404 page if report is not found" do
-    get :show, params: {id: -1}
+    get :show, params: { id: -1 }
 
     assert_equal "404", @response.code
   end

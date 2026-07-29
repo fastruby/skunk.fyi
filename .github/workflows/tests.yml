@@ -54,6 +54,9 @@ jobs:
           yarn install
           cp config/database.yml.github config/database.yml
           bin/rails db:setup
+      - name: Lint
+        run: |
+          bundle exec rubocop
       - name: Run tests
         run: |
           bundle exec rake

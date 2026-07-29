@@ -31,7 +31,7 @@ gem "webpacker", "~> 5.x"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
+  gem "byebug", platforms: [ :mri, :mingw, :x64_mingw ]
 end
 
 group :development do
@@ -41,20 +41,21 @@ group :development do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem "tzinfo-data", platforms: [ :mingw, :mswin, :x64_mingw, :jruby ]
 
 group :test do
   gem "test-unit"
+  # minitest 6 requires Ruby >= 3.2, so it only became reachable with the Ruby
+  # 3.3 bump. It removes the 3-arg Minitest::Test.run that railties 6.1/7.0 call,
+  # which breaks the suite. Rails must move past 7.0 before this pin can go.
+  gem "minitest", "~> 5.0"
 end
 
 group :development, :test do
   gem "rails_best_practices"
   gem "factory_bot_rails"
   gem "simplecov", require: false
-  gem "standard"
-  gem "rubocop-rspec"
-  gem "rubocop-rails"
-  gem "rubocop-ombu_labs", require: false, github: "fastruby/rubocop-ombu_labs", branch: :main
+  gem "rubocop-rails-omakase", require: false
   gem "reek"
   gem "overcommit"
 end
