@@ -54,6 +54,7 @@ jobs:
           yarn install
           cp config/database.yml.github config/database.yml
           bin/rails db:setup
+          bundle exec rails webpacker:compile
       - name: Lint
         run: |
           bundle exec rubocop
@@ -100,6 +101,7 @@ jobs:
           yarn install
           cp config/database.yml.github config/database.yml
           bin/rails db:setup
+          bundle exec rails webpacker:compile
       - name: Run tests
         env:
           PGHOST: localhost

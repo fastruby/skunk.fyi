@@ -52,6 +52,7 @@ jobs:
           yarn install
           cp config/database.yml.github config/database.yml
           bin/rails db:setup
+          bundle exec rails webpacker:compile
       - name: Run tests
         run: |
           COVERAGE=true bundle exec rake
