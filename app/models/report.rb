@@ -4,7 +4,7 @@ class Report < ApplicationRecord
   before_validation :set_slug
   before_create :build_files
 
-  validates :report, length: {minimum: 100, maximum: 20_000}
+  validates :report, length: { minimum: 100, maximum: 20_000 }
   validates :slug, uniqueness: true
   validate :validate_parseability
 

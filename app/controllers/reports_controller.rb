@@ -1,7 +1,7 @@
 class ReportsController < ApplicationController
   include ReportsHelper
 
-  protect_from_forgery except: [:create]
+  protect_from_forgery except: [ :create ]
 
   def create
     data = request.body.read
@@ -80,9 +80,9 @@ class ReportsController < ApplicationController
 
   def response_hash(report)
     if report.project.present?
-      {id: report.slug, project_id: report.project_id}
+      { id: report.slug, project_id: report.project_id }
     else
-      {id: report.slug}
+      { id: report.slug }
     end
   end
 end

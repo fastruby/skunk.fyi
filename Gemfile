@@ -5,7 +5,7 @@ end
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.1.3"
+ruby "3.3.12"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 if next?
@@ -31,7 +31,7 @@ gem "webpacker", "~> 5.x"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
+  gem "byebug", platforms: [ :mri, :mingw, :x64_mingw ]
 end
 
 group :development do
@@ -41,24 +41,29 @@ group :development do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem "tzinfo-data", platforms: [ :mingw, :mswin, :x64_mingw, :jruby ]
 
 group :test do
-  gem "test-unit"
+  # minitest 6 requires Ruby >= 3.2, so it only became reachable with the Ruby
+  # 3.3 bump. It removes the 3-arg Minitest::Test.run that railties 6.1/7.0 call,
+  # which breaks the suite. Rails must move past 7.0 before this pin can go.
+  gem "minitest", "~> 5.0"
 end
 
 group :development, :test do
   gem "rails_best_practices"
   gem "factory_bot_rails"
   gem "simplecov", require: false
-  gem "standard"
-  gem "rubocop-rspec"
-  gem "rubocop-rails"
-  gem "rubocop-ombu_labs", require: false, github: "fastruby/rubocop-ombu_labs", branch: :main
+  gem "rubocop-rails-omakase", require: false
   gem "reek"
   gem "overcommit"
 end
 
 gem "dotenv-rails"
+
+# Rails < 7.1 relies on concurrent-ruby requiring "logger" for us, which it
+# stopped doing in 1.3.5 (ActiveSupport::LoggerThreadSafeLevel references
+# ::Logger). Unpin once the app is on Rails 7.1+.
+gem "concurrent-ruby", "< 1.3.5"
 
 gem "bootsnap"
