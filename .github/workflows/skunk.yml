@@ -7,6 +7,11 @@ on:
     branches:
       - main
 
+# webpack 4 uses the MD4 hash, which OpenSSL 3 (Node 17+) removed.
+# Required until webpacker is replaced.
+env:
+  NODE_OPTIONS: --openssl-legacy-provider
+
 jobs:
   skunk:
     runs-on: ubuntu-latest
@@ -27,10 +32,10 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.1.3"
+          ruby-version: "3.3.12"
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 22
 
       - name: Install PostgreSQL 11 client
         run: |
