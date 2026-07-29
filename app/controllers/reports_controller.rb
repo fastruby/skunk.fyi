@@ -4,7 +4,7 @@ class ReportsController < ApplicationController
   protect_from_forgery except: [ :create ]
 
   def create
-    data = request.body.read
+    data = raw_report_body
     input = JSON.parse data
 
     entries = input["entries"]
@@ -59,6 +59,26 @@ class ReportsController < ApplicationController
   end
 
   private
+
+  # The report is a raw JSON document, not form parameters, so it has to be read
+  # off the request instead of out of `params`.
+  #
+  # Clients that send `Content-Type: application/json` are straightforward:
+  # Rails' JSON parameter parser reads the body through `request.raw_post`, which
+  # caches it, so `request.body` stays readable in the action.
+  #
+  # Clients that omit that header get the body parsed as a form instead. Rack 2
+  # rewound `rack.input` after parsing, so reading the body here still worked.
+  # Rack 3 (pulled in by Rails 7.1) does not rewind, and the params are always
+  # read before the action runs by the `start_processing.action_controller` log
+  # subscriber, so the stream arrives at EOF and reads as an empty string. Rack
+  # does keep the raw string it parsed, so fall back to that.
+  def raw_report_body
+    body = request.body.read
+    return body if body.present?
+
+    request.get_header("rack.request.form_vars").to_s
+  end
 
   def create_report(project, entries)
     if project

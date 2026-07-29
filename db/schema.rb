@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_20_185535) do
-
+ActiveRecord::Schema[7.0].define(version: 2023_03_20_185535) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,8 +22,8 @@ ActiveRecord::Schema.define(version: 2023_03_20_185535) do
     t.decimal "churn", precision: 8, scale: 2
     t.decimal "cost", precision: 8, scale: 2
     t.decimal "coverage", precision: 8, scale: 2
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["report_id"], name: "index_analyzed_files_on_report_id"
   end
 
@@ -32,16 +31,16 @@ ActiveRecord::Schema.define(version: 2023_03_20_185535) do
     t.string "git_url"
     t.string "permalink"
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["permalink"], name: "index_projects_on_permalink", unique: true
   end
 
   create_table "reports", id: :serial, force: :cascade do |t|
     t.text "report"
     t.boolean "compare"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "slug"
     t.bigint "project_id"
     t.index ["project_id"], name: "index_reports_on_project_id"

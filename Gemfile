@@ -9,9 +9,9 @@ ruby "3.3.12"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 if next?
-  gem "rails", "~> 7.0.0"
+  gem "rails", "~> 7.1.0"
 else
-  gem "rails", "~> 6.1.0"
+  gem "rails", "~> 7.0.0"
 end
 
 gem "madmin"
@@ -19,7 +19,7 @@ gem "madmin"
 # Use postgresql as the database for Active Record
 gem "pg", ">= 0.18", "< 2.0"
 # Use Puma as the app server
-gem "puma", "~> 5.6"
+gem "puma", "~> 6.0"
 # Use SCSS for stylesheets
 gem "sass-rails"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
