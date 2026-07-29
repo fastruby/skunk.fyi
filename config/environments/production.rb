@@ -36,7 +36,16 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  # The admin panel authenticates with HTTP basic auth, so without this the
+  # credentials travel in cleartext on any plain http:// request.
+  config.force_ssl = true
+
+  # Rails defaults HSTS to a two year max-age, which browsers honour and cache
+  # per host. That is effectively irreversible: until it expires, a browser that
+  # has seen the header refuses to talk to this host over http at all, so a
+  # misconfiguration cannot be backed out by shipping a fix. Start short, confirm
+  # the redirect works against the real Heroku router, then raise it.
+  config.ssl_options = { hsts: { expires: 1.week, subdomains: true } }
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.

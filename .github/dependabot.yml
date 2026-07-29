@@ -1,0 +1,82 @@
+version: 2
+
+updates:
+  - package-ecosystem: bundler
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Etc/UTC
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "bundler"
+    # Rails itself is dual booted from the Gemfile, so version bumps to it have
+    # to be driven by an upgrade PR that updates both lockfiles and runs QA on
+    # both boots, not by Dependabot.
+    ignore:
+      - dependency-name: rails
+      - dependency-name: railties
+      - dependency-name: activesupport
+      - dependency-name: activerecord
+      - dependency-name: actionpack
+      - dependency-name: actionview
+    # One PR per group keeps the queue reviewable; anything major still gets its
+    # own PR so it is never bundled with routine noise.
+    groups:
+      bundler-minor-and-patch:
+        applies-to: version-updates
+        update-types:
+          - minor
+          - patch
+
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Etc/UTC
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "npm"
+    # These are unresolvable while webpacker 5 is pinned, and Dependabot errors
+    # out trying: @rails/webpacker@5.4.3 and webpack-dev-server@3.11.0 both pin
+    # minimatch@3.1.2, which requires brace-expansion@^1.1.7. A failed run stamps
+    # a failing check on the head commit of main, which blocks the Heroku
+    # auto-deploy gate. Ignore conditions apply to security updates too, so this
+    # is what stops the noise.
+    #
+    # This trades the advisory alerts for a working deploy pipeline. They are not
+    # patchable today either way. Drop these entries the moment webpacker is
+    # replaced, which is the actual fix.
+    ignore:
+      - dependency-name: brace-expansion
+      - dependency-name: minimatch
+      - dependency-name: tar
+      - dependency-name: postcss
+    groups:
+      npm-minor-and-patch:
+        applies-to: version-updates
+        update-types:
+          - minor
+          - patch
+
+  # Nothing was watching these: the workflows still pin actions/checkout@v1,
+  # which was released in 2019 and runs on a Node version GitHub has retired.
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Etc/UTC
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "ci"
+    groups:
+      actions:
+        applies-to: version-updates
+        update-types:
+          - minor
+          - patch
