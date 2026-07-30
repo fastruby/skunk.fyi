@@ -5,7 +5,7 @@ end
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.3.12"
+ruby file: ".tool-versions"
 
 if next?
   gem "rails", "~> 8.1.0"
