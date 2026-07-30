@@ -14,10 +14,6 @@
 		"LANG": {
 			"required": true
 		},
-		"NODE_OPTIONS": {
-			"description": "webpack 4 uses the MD4 hash, which OpenSSL 3 (Node 17+) removed. Required until webpacker is replaced.",
-			"value": "--openssl-legacy-provider"
-		},
 		"RACK_ENV": {
 			"required": true
 		},
@@ -43,9 +39,6 @@
 		"heroku-postgresql"
 	],
 	"buildpacks": [
-		{
-			"url": "heroku/nodejs"
-		},
 		{
 			"url": "heroku/ruby"
 		}

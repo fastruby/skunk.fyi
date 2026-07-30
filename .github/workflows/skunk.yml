@@ -7,11 +7,6 @@ on:
     branches:
       - main
 
-env:
-  # webpack 4 uses the MD4 hash, which OpenSSL 3 (Node 17+) removed.
-  # Required until webpacker is replaced.
-  NODE_OPTIONS: --openssl-legacy-provider
-
 jobs:
   skunk:
     runs-on: ubuntu-latest
@@ -54,30 +49,18 @@ jobs:
           ruby-version-file: .tool-versions
           bundler-cache: true
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: yarn
-
-      - name: Install JavaScript dependencies
-        run: yarn install
-
       - name: Set up the database
         run: |
           cp config/database.yml.github config/database.yml
           bin/rails db:setup
 
-      - name: Compile packs
-        run: bin/rails webpacker:compile
-
       - name: Run tests
         run: bin/rails test
 
       # Paths are listed explicitly rather than passing ".". bundler-cache installs
-      # gems into vendor/bundle, inside the working tree, and yarn fills
-      # node_modules, so "." would have skunk analyse every gem and score churn for
-      # each file against the full history. That is tens of thousands of files
-      # instead of the ~50 belonging to this app.
+      # gems into vendor/bundle, inside the working tree, so "." would have skunk
+      # analyse every gem and score churn for each file against the full history.
+      # That is tens of thousands of files instead of the ~50 belonging to this app.
       - name: Run Skunk on the project
         run: |
           gem install skunk

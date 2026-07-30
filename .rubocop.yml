@@ -4,7 +4,6 @@ inherit_gem:
 AllCops:
   NewCops: enable
   Exclude:
-    - node_modules/**/*
     - public/**/*
     - vendor/**/*
     - db/schema.rb

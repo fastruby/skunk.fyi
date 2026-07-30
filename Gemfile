@@ -14,21 +14,22 @@ else
 end
 
 gem "madmin"
-
 gem "ostruct" # madmin builds every resource attribute with `OpenStruct.new` but never requires "ostruct"
-
 gem "pg", ">= 0.18", "< 2.0"
 gem "puma", "~> 6.0"
 gem "sass-rails"
-
-gem "webpacker", "~> 5.x"
+gem "dotenv-rails"
+# Rails < 7.1 relies on concurrent-ruby requiring "logger" for us, which it
+# stopped doing in 1.3.5 (ActiveSupport::LoggerThreadSafeLevel references
+# ::Logger). Unpin once the app is on Rails 7.1+.
+gem "concurrent-ruby", "< 1.3.5"
+gem "bootsnap"
+gem "fastruby-styleguide", github: "fastruby/styleguide", ref: "ba6522445965914f94497dbe51bf145713b6d656"
 
 group :development do
   gem "web-console", ">= 3.3.0"
   gem "listen", "~> 3.2"
 end
-
-gem "tzinfo-data", platforms: [ :mingw, :mswin, :x64_mingw, :jruby ]
 
 group :test do
   # minitest 6 requires Ruby >= 3.2, so it only became reachable with the Ruby
@@ -41,11 +42,4 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 end
 
-gem "dotenv-rails"
-
-# Rails < 7.1 relies on concurrent-ruby requiring "logger" for us, which it
-# stopped doing in 1.3.5 (ActiveSupport::LoggerThreadSafeLevel references
-# ::Logger). Unpin once the app is on Rails 7.1+.
-gem "concurrent-ruby", "< 1.3.5"
-
-gem "bootsnap"
+gem "tzinfo-data", platforms: [ :mingw, :mswin, :x64_mingw, :jruby ]

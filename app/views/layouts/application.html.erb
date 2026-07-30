@@ -7,7 +7,7 @@
   <%= csp_meta_tag %>
 
   <%= stylesheet_link_tag 'application', media: 'all' %>
-  <%= javascript_pack_tag 'application', media: 'all' %>
+  <%= javascript_include_tag 'application', defer: true %>
 </head>
 
 <body class="<%= action_name %>-page">

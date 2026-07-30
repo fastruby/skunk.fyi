@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+# Nothing to run alongside the server: the stylesheets and the one javascript
+# file compile through sprockets on request, so this is `bin/rails server` under
+# the name every other Rails app uses. If a watcher process ever comes back,
+# this is where a Procfile.dev and foreman would go.
+exec "./bin/rails", "server", *ARGV
