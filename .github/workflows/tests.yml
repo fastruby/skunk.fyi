@@ -47,7 +47,7 @@ jobs:
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install the PostgreSQL client
         run: sudo apt-get -yqq install libpq-dev

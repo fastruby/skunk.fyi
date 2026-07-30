@@ -39,7 +39,7 @@ jobs:
       PGUSER: postgres
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           # skunk scores churn from git history and compares the branch against
           # main, so a shallow clone is not enough. checkout@v1 cloned everything;
