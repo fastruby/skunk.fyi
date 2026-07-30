@@ -15,6 +15,8 @@ end
 
 gem "madmin"
 
+gem "ostruct" # madmin builds every resource attribute with `OpenStruct.new` but never requires "ostruct"
+
 gem "pg", ">= 0.18", "< 2.0"
 gem "puma", "~> 6.0"
 gem "sass-rails"
