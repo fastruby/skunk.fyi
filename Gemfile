@@ -16,7 +16,7 @@ end
 gem "madmin"
 
 gem "pg", ">= 0.18", "< 2.0"
-gem "puma", "~> 6.0"
+gem "puma", "~> 8.0"
 gem "sass-rails"
 
 gem "webpacker", "~> 5.x"
