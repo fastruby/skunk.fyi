@@ -21,9 +21,10 @@ Bundler.require(*Rails.groups)
 
 module SkunkFyi
   class Application < Rails::Application
-    # Tracks the current boot. The next boot runs 7.1, but 7.0 does not know that
-    # version and raises on it, so this moves one step at a time with the Gemfile.
-    config.load_defaults 7.0
+    # Pinned to an explicit version rather than tracking whatever Rails is
+    # installed: the defaults for a version change behavior, so each bump is
+    # its own verified step.
+    config.load_defaults 8.1
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
