@@ -164,8 +164,6 @@ GEM
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.2.6)
-    rack-proxy (0.7.0)
-      rack
     rack-session (2.1.2)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
@@ -261,7 +259,6 @@ GEM
       sprockets-rails
       tilt
     securerandom (0.4.1)
-    semantic_range (3.0.0)
     sprockets (4.2.2)
       concurrent-ruby (~> 1.0)
       logger
@@ -284,11 +281,6 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webpacker (5.4.3)
-      activesupport (>= 5.2)
-      rack-proxy (>= 0.6.1)
-      railties (>= 5.2)
-      semantic_range (>= 2.3.0)
     websocket-driver (0.8.2)
       base64
       websocket-extensions (>= 0.1.0)
@@ -313,7 +305,6 @@ DEPENDENCIES
   sass-rails
   tzinfo-data
   web-console (>= 3.3.0)
-  webpacker (~> 5.x)
 
 RUBY VERSION
    ruby 3.3.12p206

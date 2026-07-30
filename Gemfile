@@ -21,8 +21,6 @@ gem "pg", ">= 0.18", "< 2.0"
 gem "puma", "~> 6.0"
 gem "sass-rails"
 
-gem "webpacker", "~> 5.x"
-
 group :development do
   gem "web-console", ">= 3.3.0"
   gem "listen", "~> 3.2"
