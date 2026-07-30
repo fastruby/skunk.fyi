@@ -94,8 +94,6 @@ GEM
     base64 (0.3.0)
     bigdecimal (4.1.2)
     bindex (0.8.1)
-    bootsnap (1.18.6)
-      msgpack (~> 1.2)
     bootstrap-sass (3.4.1)
       autoprefixer-rails (>= 5.2.1)
       sassc (>= 2.0.0)
@@ -155,7 +153,6 @@ GEM
     minitest (6.0.6)
       drb (~> 2.0)
       prism (~> 1.5)
-    msgpack (1.8.2)
     net-imap (0.6.6)
       date
       net-protocol
@@ -318,7 +315,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bootsnap
   dotenv-rails
   fastruby-styleguide!
   listen (~> 3.2)
