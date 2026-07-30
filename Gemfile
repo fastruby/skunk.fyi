@@ -7,11 +7,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby file: ".tool-versions"
 
-if next?
-  gem "rails", "~> 8.1.0"
-else
-  gem "rails", "~> 8.0.0"
-end
+gem "rails", "~> 8.1.0"
 
 gem "madmin"
 gem "ostruct" # madmin builds every resource attribute with `OpenStruct.new` but never requires "ostruct"
