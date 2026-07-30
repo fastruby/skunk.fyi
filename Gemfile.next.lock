@@ -107,7 +107,7 @@ GEM
       sassc (>= 2.0.0)
     builder (3.3.0)
     cgi (0.5.2)
-    concurrent-ruby (1.3.4)
+    concurrent-ruby (1.3.8)
     connection_pool (3.0.2)
     crass (1.0.7)
     date (3.5.1)
@@ -324,7 +324,6 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
-  concurrent-ruby (< 1.3.5)
   dotenv-rails
   fastruby-styleguide!
   listen (~> 3.2)
