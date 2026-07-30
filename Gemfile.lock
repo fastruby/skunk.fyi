@@ -322,7 +322,6 @@ DEPENDENCIES
   fastruby-styleguide!
   listen (~> 3.2)
   madmin
-  minitest (~> 5.0)
   ostruct
   pg (>= 0.18, < 2.0)
   puma (~> 7.2)

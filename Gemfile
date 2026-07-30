@@ -27,13 +27,6 @@ group :development do
   gem "listen", "~> 3.2"
 end
 
-group :test do
-  # minitest 6 requires Ruby >= 3.2, so it only became reachable with the Ruby
-  # 3.3 bump. It removes the 3-arg Minitest::Test.run that railties 6.1/7.0 call,
-  # which breaks the suite. Rails must move past 7.0 before this pin can go.
-  gem "minitest", "~> 5.0"
-end
-
 group :development, :test do
   gem "rubocop-rails-omakase", require: false
 end

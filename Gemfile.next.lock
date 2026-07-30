@@ -150,7 +150,9 @@ GEM
       sass (>= 3.3)
     mini_mime (1.1.5)
     mini_portile2 (2.8.9)
-    minitest (5.27.0)
+    minitest (6.0.6)
+      drb (~> 2.0)
+      prism (~> 1.5)
     msgpack (1.8.2)
     net-imap (0.6.6)
       date
@@ -319,7 +321,6 @@ DEPENDENCIES
   fastruby-styleguide!
   listen (~> 3.2)
   madmin
-  minitest (~> 5.0)
   ostruct
   pg (>= 0.18, < 2.0)
   puma (~> 7.2)
