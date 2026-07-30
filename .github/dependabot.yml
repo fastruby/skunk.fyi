@@ -11,16 +11,26 @@ updates:
     open-pull-requests-limit: 5
     commit-message:
       prefix: "bundler"
-    # Rails itself is dual booted from the Gemfile, so version bumps to it have
-    # to be driven by an upgrade PR that updates both lockfiles and runs QA on
-    # both boots, not by Dependabot.
+    # Rails is dual booted from the Gemfile, so version bumps have to be driven by
+    # an upgrade PR that moves both lockfiles and runs QA on both boots.
+    #
+    # The update-types form is load bearing. A bare `dependency-name` ignore also
+    # suppresses security update PRs, which for these gems is where Rails CVEs
+    # land. Per GitHub's docs, update-types conditions apply to version updates
+    # only, so security PRs still come through.
     ignore:
       - dependency-name: rails
+        update-types: [ version-update:semver-major, version-update:semver-minor, version-update:semver-patch ]
       - dependency-name: railties
+        update-types: [ version-update:semver-major, version-update:semver-minor, version-update:semver-patch ]
       - dependency-name: activesupport
+        update-types: [ version-update:semver-major, version-update:semver-minor, version-update:semver-patch ]
       - dependency-name: activerecord
+        update-types: [ version-update:semver-major, version-update:semver-minor, version-update:semver-patch ]
       - dependency-name: actionpack
+        update-types: [ version-update:semver-major, version-update:semver-minor, version-update:semver-patch ]
       - dependency-name: actionview
+        update-types: [ version-update:semver-major, version-update:semver-minor, version-update:semver-patch ]
     # One PR per group keeps the queue reviewable; anything major still gets its
     # own PR so it is never bundled with routine noise.
     groups:
