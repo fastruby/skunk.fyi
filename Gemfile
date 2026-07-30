@@ -16,7 +16,7 @@ end
 gem "madmin"
 gem "ostruct" # madmin builds every resource attribute with `OpenStruct.new` but never requires "ostruct"
 gem "pg", ">= 0.18", "< 2.0"
-gem "puma", "~> 6.0"
+gem "puma", "~> 7.2"
 gem "sass-rails"
 gem "dotenv-rails"
 # Rails < 7.1 relies on concurrent-ruby requiring "logger" for us, which it
