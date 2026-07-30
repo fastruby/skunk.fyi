@@ -26,7 +26,13 @@ gem "sass-rails"
 # material_design_lite-sass, jquery-rails and popper_js as gem dependencies, so
 # using it here is what keeps Node out of the repo. It is not published to
 # rubygems, hence the git source.
-gem "fastruby-styleguide", github: "fastruby/styleguide"
+#
+# Pinned to the commit yarn.lock resolved, so the compiled CSS is the CSS
+# production already serves. The styleguide's default branch is five years ahead
+# of it and changes the link colour from green to blue, swaps Source Code Pro for
+# Oxygen and moves the header breakpoint, none of which belongs in a webpacker
+# removal. Upgrading the styleguide is its own change.
+gem "fastruby-styleguide", github: "fastruby/styleguide", ref: "ba6522445965914f94497dbe51bf145713b6d656"
 
 group :development do
   gem "web-console", ">= 3.3.0"

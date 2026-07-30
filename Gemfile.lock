@@ -1,6 +1,7 @@
 GIT
   remote: https://github.com/fastruby/styleguide.git
-  revision: f8f4b99ed3be855e384f83a410958f05ec0017c3
+  revision: ba6522445965914f94497dbe51bf145713b6d656
+  ref: ba6522445965914f94497dbe51bf145713b6d656
   specs:
     fastruby-styleguide (0.1.0)
       bootstrap-sass (>= 3.4.0)
