@@ -4,7 +4,9 @@ Rails.application.routes.draw do
     resources :reports
     root to: "dashboard#show"
   end
-  root to: "high_voltage/pages#show", id: "home"
+  root to: "pages#home"
+
+  get "/pages/home", to: redirect("/", status: 301)
 
   post "/reports", to: "reports#create"
   get "/:id", to: "reports#show"

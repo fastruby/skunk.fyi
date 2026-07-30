@@ -7,64 +7,86 @@ on:
     branches:
       - main
 
-# webpack 4 uses the MD4 hash, which OpenSSL 3 (Node 17+) removed.
-# Required until webpacker is replaced.
 env:
+  # webpack 4 uses the MD4 hash, which OpenSSL 3 (Node 17+) removed.
+  # Required until webpacker is replaced.
   NODE_OPTIONS: --openssl-legacy-provider
 
 jobs:
   skunk:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     services:
       postgres:
-        image: postgres:11.6-alpine
-        ports:
-          - 5432:5432
+        # Matches the production Postgres version.
+        image: postgres:15.17-alpine
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-        # needed because the postgres container does not provide a healthcheck
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        ports:
+          - 5432:5432
+        # The postgres image ships no healthcheck of its own.
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      RAILS_ENV: test
+      PGHOST: localhost
+      PGUSER: postgres
 
     steps:
-      - uses: actions/checkout@v1
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
+      - uses: actions/checkout@v4
         with:
-          ruby-version: "3.3.12"
-      - uses: actions/setup-node@v3
+          # skunk scores churn from git history and compares the branch against
+          # main, so a shallow clone is not enough. checkout@v1 cloned everything;
+          # v4 defaults to depth 1.
+          fetch-depth: 0
+
+      - name: Install the PostgreSQL client
+        run: sudo apt-get -yqq install libpq-dev
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version-file: .tool-versions
+          bundler-cache: true
+
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: yarn
 
-      - name: Install PostgreSQL 11 client
-        run: |
-          sudo apt-get -yqq install libpq-dev
+      - name: Install JavaScript dependencies
+        run: yarn install
 
-      - name: Build App
-        env:
-          PGHOST: localhost
-          PGUSER: postgres
-          RAILS_ENV: test
+      - name: Set up the database
         run: |
-          gem install bundler
-          bundle install --jobs 4 --retry 3
-          yarn install
           cp config/database.yml.github config/database.yml
           bin/rails db:setup
-          bundle exec rails webpacker:compile
+
+      - name: Compile packs
+        run: bin/rails webpacker:compile
+
       - name: Run tests
-        run: |
-          COVERAGE=true bundle exec rake
-      - name: Run Skunk on Project
+        run: bin/rails test
+
+      # Paths are listed explicitly rather than passing ".". bundler-cache installs
+      # gems into vendor/bundle, inside the working tree, and yarn fills
+      # node_modules, so "." would have skunk analyse every gem and score churn for
+      # each file against the full history. That is tens of thousands of files
+      # instead of the ~50 belonging to this app.
+      - name: Run Skunk on the project
         run: |
           gem install skunk
           git checkout Gemfile.lock
           CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
           if [[ "$CURRENT_BRANCH" != "main" ]]; then
             echo "Executing within branch: $CURRENT_BRANCH"
-            skunk . -b main
+            skunk app config db test -b main
           else
             echo "Executing within main branch"
-            skunk .
+            skunk app config db test
           fi

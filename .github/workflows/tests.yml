@@ -1,6 +1,5 @@
-# .github/workflows/ci.yml
-
 name: CI
+
 on:
   push:
     branches:
@@ -9,104 +8,77 @@ on:
     branches:
       - main
 
-# webpack 4 uses the MD4 hash, which OpenSSL 3 (Node 17+) removed.
-# Required until webpacker is replaced.
 env:
+  # webpack 4 uses the MD4 hash, which OpenSSL 3 (Node 17+) removed.
+  # Required until webpacker is replaced.
   NODE_OPTIONS: --openssl-legacy-provider
 
 jobs:
-  test-rails-current:
+  test:
+    name: test (${{ matrix.gemfile }})
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    strategy:
+      fail-fast: false
+      matrix:
+        gemfile: [ Gemfile, Gemfile.next ]
 
     services:
       postgres:
-        image: postgres:11.6-alpine
-        ports:
-          - 5432:5432
+        # Matches the production Postgres version.
+        image: postgres:15.17-alpine
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-        # needed because the postgres container does not provide a healthcheck
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        ports:
+          - 5432:5432
+        # The postgres image ships no healthcheck of its own.
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      RAILS_ENV: test
+      PGHOST: localhost
+      PGUSER: postgres
+      BUNDLE_GEMFILE: ${{ matrix.gemfile }}
 
     steps:
-      - uses: actions/checkout@v1
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
+      - uses: actions/checkout@v4
+
+      - name: Install the PostgreSQL client
+        run: sudo apt-get -yqq install libpq-dev
+
+      # bundler-cache runs `bundle install` against BUNDLE_GEMFILE, so each boot
+      # is resolved from its own committed lockfile and cached separately.
+      - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.3.12"
-      - uses: actions/setup-node@v3
+          ruby-version-file: .tool-versions
+          bundler-cache: true
+
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: yarn
 
-      - name: Install PostgreSQL 11 client
-        run: |
-          sudo apt-get -yqq install libpq-dev
+      - name: Install JavaScript dependencies
+        run: yarn install
 
-      - name: Build App
-        env:
-          PGHOST: localhost
-          PGUSER: postgres
-          RAILS_ENV: test
+      - name: Set up the database
         run: |
-          gem install bundler
-          bundle install --jobs 4 --retry 3
-          yarn install
           cp config/database.yml.github config/database.yml
           bin/rails db:setup
-          bundle exec rails webpacker:compile
+
+      - name: Compile packs
+        run: bin/rails webpacker:compile
+
+      # Same rubocop version in both lockfiles, so once is enough.
       - name: Lint
-        run: |
-          bundle exec rubocop
+        if: matrix.gemfile == 'Gemfile'
+        run: bundle exec rubocop
+
       - name: Run tests
-        run: |
-          bundle exec rake
-  test-rails-next:
-    runs-on: ubuntu-latest
-
-    services:
-      postgres:
-        image: postgres:11.6-alpine
-        ports:
-          - 5432:5432
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-        # needed because the postgres container does not provide a healthcheck
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
-    steps:
-      - uses: actions/checkout@v1
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: "3.3.12"
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 22
-
-      - name: Install PostgreSQL 11 client
-        run: |
-          sudo apt-get -yqq install libpq-dev
-
-      - name: Build App
-        env:
-          PGHOST: localhost
-          PGUSER: postgres
-          RAILS_ENV: test
-          BUNDLE_GEMFILE: Gemfile.next
-        run: |
-          gem install bundler
-          bundle update rails --jobs 4 --retry 3
-          yarn install
-          cp config/database.yml.github config/database.yml
-          bin/rails db:setup
-          bundle exec rails webpacker:compile
-      - name: Run tests
-        env:
-          PGHOST: localhost
-          PGUSER: postgres
-          RAILS_ENV: test
-          BUNDLE_GEMFILE: Gemfile.next
-        run: |
-          bundle exec rake
+        run: bin/rails test

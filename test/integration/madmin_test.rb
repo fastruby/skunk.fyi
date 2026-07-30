@@ -30,6 +30,21 @@ class MadminTest < ActionDispatch::IntegrationTest
     assert_equal 200, status
   end
 
+  # With nothing configured the panel has to refuse everyone. Comparing unset
+  # credentials naively would let an empty username and password through.
+  def test_denies_access_when_no_credentials_are_configured
+    original = [ ENV["ADMIN_USERNAME"], ENV["ADMIN_PASSWORD"] ]
+    ENV["ADMIN_USERNAME"] = nil
+    ENV["ADMIN_PASSWORD"] = nil
+
+    credentials = ActionController::HttpAuthentication::Basic.encode_credentials("", "")
+    get "/madmin", headers: { "HTTP_AUTHORIZATION" => credentials }
+
+    assert_equal 401, status
+  ensure
+    ENV["ADMIN_USERNAME"], ENV["ADMIN_PASSWORD"] = original
+  end
+
   def test_reports_screens_render
     [ "/madmin/reports",
       "/madmin/reports/new",

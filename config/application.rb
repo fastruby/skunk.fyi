@@ -21,8 +21,9 @@ Bundler.require(*Rails.groups)
 
 module SkunkFyi
   class Application < Rails::Application
-    # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.0
+    # Tracks the current boot. The next boot runs 7.1, but 7.0 does not know that
+    # version and raises on it, so this moves one step at a time with the Gemfile.
+    config.load_defaults 7.0
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
