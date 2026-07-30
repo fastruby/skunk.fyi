@@ -19,7 +19,7 @@ gem "pg", ">= 0.18", "< 2.0"
 gem "puma", "~> 6.0"
 gem "sass-rails"
 
-gem "webpacker", "~> 5.x"
+gem "webpacker", "~> 6.rc"
 
 group :development do
   gem "web-console", ">= 3.3.0"
