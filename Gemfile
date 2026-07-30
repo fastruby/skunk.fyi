@@ -22,7 +22,7 @@ gem "dotenv-rails"
 # Rails < 7.1 relies on concurrent-ruby requiring "logger" for us, which it
 # stopped doing in 1.3.5 (ActiveSupport::LoggerThreadSafeLevel references
 # ::Logger). Unpin once the app is on Rails 7.1+.
-gem "concurrent-ruby", "< 1.3.5"
+gem "concurrent-ruby", "< 1.3.8"
 gem "bootsnap"
 gem "fastruby-styleguide", github: "fastruby/styleguide", ref: "ba6522445965914f94497dbe51bf145713b6d656"
 
