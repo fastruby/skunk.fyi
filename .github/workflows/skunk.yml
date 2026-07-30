@@ -15,6 +15,7 @@ env:
 jobs:
   skunk:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     services:
       postgres:
@@ -72,6 +73,11 @@ jobs:
       - name: Run tests
         run: bin/rails test
 
+      # Paths are listed explicitly rather than passing ".". bundler-cache installs
+      # gems into vendor/bundle, inside the working tree, and yarn fills
+      # node_modules, so "." would have skunk analyse every gem and score churn for
+      # each file against the full history. That is tens of thousands of files
+      # instead of the ~50 belonging to this app.
       - name: Run Skunk on the project
         run: |
           gem install skunk
@@ -79,8 +85,8 @@ jobs:
           CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
           if [[ "$CURRENT_BRANCH" != "main" ]]; then
             echo "Executing within branch: $CURRENT_BRANCH"
-            skunk . -b main
+            skunk app config db test -b main
           else
             echo "Executing within main branch"
-            skunk .
+            skunk app config db test
           fi
