@@ -49,14 +49,6 @@ jobs:
           ruby-version-file: .tool-versions
           bundler-cache: true
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: yarn
-
-      - name: Install JavaScript dependencies
-        run: yarn install
-
       - name: Set up the database
         run: |
           cp config/database.yml.github config/database.yml
@@ -66,10 +58,9 @@ jobs:
         run: bin/rails test
 
       # Paths are listed explicitly rather than passing ".". bundler-cache installs
-      # gems into vendor/bundle, inside the working tree, and yarn fills
-      # node_modules, so "." would have skunk analyse every gem and score churn for
-      # each file against the full history. That is tens of thousands of files
-      # instead of the ~50 belonging to this app.
+      # gems into vendor/bundle, inside the working tree, so "." would have skunk
+      # analyse every gem and score churn for each file against the full history.
+      # That is tens of thousands of files instead of the ~50 belonging to this app.
       - name: Run Skunk on the project
         run: |
           gem install skunk

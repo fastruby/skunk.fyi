@@ -34,11 +34,10 @@ Run the command:
 rails s
 ```
 
-If gems or node packages are missing, run:
+If gems are missing, run:
 
 ```
 bundle install
-yarn install
 ```
 
 ## Contributing

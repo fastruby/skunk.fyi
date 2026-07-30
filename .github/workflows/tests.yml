@@ -54,14 +54,6 @@ jobs:
           ruby-version-file: .tool-versions
           bundler-cache: true
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: yarn
-
-      - name: Install JavaScript dependencies
-        run: yarn install
-
       - name: Set up the database
         run: |
           cp config/database.yml.github config/database.yml

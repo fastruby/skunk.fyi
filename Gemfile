@@ -21,6 +21,13 @@ gem "pg", ">= 0.18", "< 2.0"
 gem "puma", "~> 6.0"
 gem "sass-rails"
 
+# The styleguide also ships as an npm package, which is what the app used while
+# webpacker was around. The gem carries the same SCSS and pulls bootstrap-sass,
+# material_design_lite-sass, jquery-rails and popper_js as gem dependencies, so
+# using it here is what keeps Node out of the repo. It is not published to
+# rubygems, hence the git source.
+gem "fastruby-styleguide", github: "fastruby/styleguide"
+
 group :development do
   gem "web-console", ">= 3.3.0"
   gem "listen", "~> 3.2"
