@@ -23,7 +23,7 @@ gem "webpacker", "~> 5.x"
 
 group :development do
   gem "web-console", ">= 3.3.0"
-  gem "listen", "~> 3.2"
+  gem "listen", "~> 3.10"
 end
 
 gem "tzinfo-data", platforms: [ :mingw, :mswin, :x64_mingw, :jruby ]
@@ -44,6 +44,6 @@ gem "dotenv-rails"
 # Rails < 7.1 relies on concurrent-ruby requiring "logger" for us, which it
 # stopped doing in 1.3.5 (ActiveSupport::LoggerThreadSafeLevel references
 # ::Logger). Unpin once the app is on Rails 7.1+.
-gem "concurrent-ruby", "< 1.3.5"
+gem "concurrent-ruby", "< 1.3.9"
 
 gem "bootsnap"
