@@ -15,7 +15,7 @@ jobs:
     services:
       postgres:
         # Matches the production Postgres version.
-        image: postgres:15.17-alpine
+        image: postgres:18.3-alpine
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -46,7 +46,7 @@ jobs:
 
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version-file: .tool-versions
+          ruby-version: .tool-versions
           bundler-cache: true
 
       - name: Set up the database
